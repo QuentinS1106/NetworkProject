@@ -6,21 +6,16 @@ import java.net.Socket;
 
 
 public class TCPServer {
-    public static void main(String[] args) throws IOException {
-        System.out.println("Opening");
+
+    private boolean open = false;
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         ServerSocket socket = new ServerSocket(50000);
         Socket connection = socket.accept();
-        System.out.println("Connection Accepted.");
         ObjectOutputStream output = new ObjectOutputStream(connection.getOutputStream());
         output.flush();
-        System.out.println("Got Output");
         ObjectInputStream input = new ObjectInputStream(connection.getInputStream());
-        System.out.println("Got Input");
-        
-        
-        // Shit during the connection
-        output.writeObject("TEST DATA");
-        output.flush();
+
+        System.out.println(input.readObject());
 
         connection.close();
     }
